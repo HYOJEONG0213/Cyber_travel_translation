@@ -16,6 +16,7 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
     private GoogleMap googleMap;
 
     @Override
+    //앱이 처음 생성될때, activity_maps.xml로드, 초기화..
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps); //앱 실행시 activity_maps로 가지게끔
@@ -27,6 +28,7 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
     @Override
+    //지도가 사용가능하면 시작
     public void onMapReady(GoogleMap map) {
         googleMap = map;
 
@@ -38,24 +40,28 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
     @Override
+    //activity가 화면에 나타남
     public void onResume() {
         super.onResume();
         mapView.onResume();
     }
 
     @Override
+    //activity가 다른 act로 이동
     public void onPause() {
         super.onPause();
         mapView.onPause();
     }
 
     @Override
+    //act 종료
     public void onDestroy() {
         super.onDestroy();
         mapView.onDestroy();
     }
 
     @Override
+    //시스템이 낮은 메모리상태에 있을 때
     public void onLowMemory() {
         super.onLowMemory();
         mapView.onLowMemory();

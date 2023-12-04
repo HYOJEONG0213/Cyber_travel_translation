@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Cyber_travel_translation</string>
+    <string name="map_description">Google 지도</string>
+
 </resources>
