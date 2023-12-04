@@ -1,6 +1,8 @@
 package com.example.cyber_travel_translation;
 
 import android.os.Bundle;
+import android.util.Log;
+
 import androidx.fragment.app.FragmentActivity;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -32,6 +34,7 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
         googleMap.moveCamera(CameraUpdateFactory.newLatLng(seoul));
 
         googleMap.getUiSettings().setZoomControlsEnabled(true); //확대, 축소 버튼
+        Log.d("MapsActivity", "Map is ready.");
     }
 
     @Override
