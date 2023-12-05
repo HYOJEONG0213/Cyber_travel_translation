@@ -11,9 +11,27 @@ import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
 
-public class MainActivity extends FragmentActivity implements OnMapReadyCallback {
-    private MapView mapView;
+import android.webkit.WebView;
+import android.widget.Button;
+import android.view.View;
+import android.content.Intent;
+import android.net.Uri;
+import android.content.pm.PackageManager;
+import android.widget.Toast;
+import com.google.android.gms.maps.model.MarkerOptions;
+import android.webkit.WebViewClient;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+
+public class MainActivity extends FragmentActivity implements OnMapReadyCallback, GoogleMap.OnMapClickListener {
+    private MapView mapView;    //MapView: 구글맵 띄우기
     private GoogleMap googleMap;
+    private Button streetViewButton;
+    private LatLng clickedLatLng;   //클릭한 지점의 좌표
+
+    private WebView streetViewWebView;  //streetViewWebView: 거리뷰 웹뷰로 띄우기
+    //해당 앱안에서 거리뷰 띄우는건 구글이 금지해서 안됌 ㅠㅡㅠ
 
     @Override
     //앱이 처음 생성될때, activity_maps.xml로드, 초기화..
@@ -21,11 +39,23 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps); //앱 실행시 activity_maps로 가지게끔
 
-        mapView = findViewById(R.id.mapView);
+        mapView = findViewById(R.id.mapView);   //mapView 초기화
         mapView.onCreate(savedInstanceState);
 
-        mapView.getMapAsync(this);
+        // 버튼 초기화
+        streetViewButton = findViewById(R.id.streetViewButton);
+        streetViewWebView = new WebView(this);
+        streetViewWebView.getSettings().setJavaScriptEnabled(true); //streeView 초기화
+        streetViewWebView.setWebViewClient(new WebViewClient());
+        streetViewButton.setOnClickListener(new View.OnClickListener() {    //streetView 버튼 누르면 showStreetView 실행
+            @Override
+            public void onClick(View v) {
+                showStreetView();
+            }
+        });
+        mapView.getMapAsync(this);  //구글맵 객체 가져오기
     }
+
 
     @Override
     //지도가 사용가능하면 시작
@@ -36,8 +66,17 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
         googleMap.moveCamera(CameraUpdateFactory.newLatLng(seoul));
 
         googleMap.getUiSettings().setZoomControlsEnabled(true); //확대, 축소 버튼
-        Log.d("MapsActivity", "Map is ready.");
+
+        googleMap.setOnMapClickListener(this);
     }
+
+    public void onMapClick(LatLng latLng) {
+        // 클릭한 지점의 좌표를 가져와서 저장
+        clickedLatLng = latLng; // 클릭한 지점을 표시
+        googleMap.clear(); // 기존 클릭한 지점을 제거
+        googleMap.addMarker(new MarkerOptions().position(clickedLatLng).title("클릭한 지점"));
+    }
+
 
     @Override
     //activity가 화면에 나타남
@@ -66,6 +105,21 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
         super.onLowMemory();
         mapView.onLowMemory();
     }
+
+
+    // 클릭한 지점의 로드뷰로 이동하는 함수
+    private void showStreetView() {
+        if (clickedLatLng != null) {
+            //위도와 경도로 해당 지점의 로드뷰로 이동
+            String streetViewUrl = "https://www.google.com/maps/@?api=1&map_action=pano&viewpoint="
+                    + clickedLatLng.latitude + "," + clickedLatLng.longitude;
+            streetViewWebView.loadUrl(streetViewUrl);
+            setContentView(streetViewWebView);  //화면에 streetViewWebView가 보이게끔 표시
+        } else {
+            Toast.makeText(this, "지점을 클릭해주세요.", Toast.LENGTH_SHORT).show();
+        }
+    }
+
 }
 
 
