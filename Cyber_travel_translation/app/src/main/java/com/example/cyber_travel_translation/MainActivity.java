@@ -1,7 +1,6 @@
 package com.example.cyber_travel_translation;
 
 import android.os.Bundle;
-import android.util.Log;
 
 import androidx.fragment.app.FragmentActivity;
 
@@ -14,20 +13,16 @@ import com.google.android.gms.maps.model.LatLng;
 import android.webkit.WebView;
 import android.widget.Button;
 import android.view.View;
-import android.content.Intent;
-import android.net.Uri;
-import android.content.pm.PackageManager;
 import android.widget.Toast;
 import com.google.android.gms.maps.model.MarkerOptions;
 import android.webkit.WebViewClient;
-
-import androidx.appcompat.app.AppCompatActivity;
 
 
 public class MainActivity extends FragmentActivity implements OnMapReadyCallback, GoogleMap.OnMapClickListener {
     private MapView mapView;    //MapView: 구글맵 띄우기
     private GoogleMap googleMap;
-    private Button streetViewButton;
+    private Button web_streetViewButton;
+    private Button image_streetViewButton;
     private LatLng clickedLatLng;   //클릭한 지점의 좌표
 
     private WebView streetViewWebView;  //streetViewWebView: 거리뷰 웹뷰로 띄우기
@@ -43,14 +38,21 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
         mapView.onCreate(savedInstanceState);
 
         // 버튼 초기화
-        streetViewButton = findViewById(R.id.streetViewButton);
+        web_streetViewButton = findViewById(R.id.web_streetViewButton);
+        image_streetViewButton = findViewById(R.id.image_streetViewButton);
         streetViewWebView = new WebView(this);
         streetViewWebView.getSettings().setJavaScriptEnabled(true); //streeView 초기화
         streetViewWebView.setWebViewClient(new WebViewClient());
-        streetViewButton.setOnClickListener(new View.OnClickListener() {    //streetView 버튼 누르면 showStreetView 실행
+        web_streetViewButton.setOnClickListener(new View.OnClickListener() {    //streetView 버튼 누르면 showStreetView 실행
             @Override
             public void onClick(View v) {
-                showStreetView();
+                web_showStreetView();
+            }
+        });
+        image_streetViewButton.setOnClickListener(new View.OnClickListener() {    //streetView 버튼 누르면 showStreetView 실행
+            @Override
+            public void onClick(View v) {
+                image_showStreetView();
             }
         });
         mapView.getMapAsync(this);  //구글맵 객체 가져오기
@@ -108,7 +110,19 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
 
 
     // 클릭한 지점의 로드뷰로 이동하는 함수
-    private void showStreetView() {
+    private void web_showStreetView() {
+        if (clickedLatLng != null) {
+            //위도와 경도로 해당 지점의 로드뷰로 이동
+            String streetViewUrl = "https://www.google.com/maps/@?api=1&map_action=pano&viewpoint="
+                    + clickedLatLng.latitude + "," + clickedLatLng.longitude;
+            streetViewWebView.loadUrl(streetViewUrl);
+            setContentView(streetViewWebView);  //화면에 streetViewWebView가 보이게끔 표시
+        } else {
+            Toast.makeText(this, "지점을 클릭해주세요.", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void image_showStreetView() {
         if (clickedLatLng != null) {
             //위도와 경도로 해당 지점의 로드뷰로 이동
             String streetViewUrl = "https://www.google.com/maps/@?api=1&map_action=pano&viewpoint="

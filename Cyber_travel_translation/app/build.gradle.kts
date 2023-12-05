@@ -14,12 +14,23 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+
+    }
+
+    buildFeatures {
+        buildConfig = true
     }
 
     buildTypes {
         release {
             isMinifyEnabled = false
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+
+            // 프로젝트에서 사용
+            buildConfigField("String", "GOOGLE_API", "\"${project.findProperty("google_api") ?: ""}\"")
+            // 매니페스트에서 사용
+            resValue("string", "GOOGLE_API", "\"${project.findProperty("google_api") ?: ""}\"")
         }
     }
     compileOptions {
