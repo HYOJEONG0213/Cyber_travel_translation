@@ -24,7 +24,6 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
     private Button web_streetViewButton;
     private Button image_streetViewButton;
     private LatLng clickedLatLng;   //클릭한 지점의 좌표
-
     private WebView streetViewWebView;  //streetViewWebView: 거리뷰 웹뷰로 띄우기
     //해당 앱안에서 거리뷰 띄우는건 구글이 금지해서 안됌 ㅠㅡㅠ
 
@@ -56,6 +55,9 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
             }
         });
         mapView.getMapAsync(this);  //구글맵 객체 가져오기
+
+
+        //Toast.makeText(this, BuildConfig.GOOGLE_API, Toast.LENGTH_SHORT).show();
     }
 
 
@@ -122,13 +124,20 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
         }
     }
 
+
     private void image_showStreetView() {
         if (clickedLatLng != null) {
-            //위도와 경도로 해당 지점의 로드뷰로 이동
-            String streetViewUrl = "https://www.google.com/maps/@?api=1&map_action=pano&viewpoint="
-                    + clickedLatLng.latitude + "," + clickedLatLng.longitude;
+            String streetViewUrl = "https://maps.googleapis.com/maps/api/streetview?" +
+                    "size=600x300" +
+                    "&location=" + clickedLatLng.latitude + "," + clickedLatLng.longitude +
+                    "&fov=90" +
+                    "&heading=235" +
+                    "&pitch=10" +
+                    "&key="+BuildConfig.GOOGLE_API;
+
+            // 생성한 URL을 WebView에 로드
             streetViewWebView.loadUrl(streetViewUrl);
-            setContentView(streetViewWebView);  //화면에 streetViewWebView가 보이게끔 표시
+            setContentView(streetViewWebView);  // 화면에 streetViewWebView가 보이게끔 표시
         } else {
             Toast.makeText(this, "지점을 클릭해주세요.", Toast.LENGTH_SHORT).show();
         }

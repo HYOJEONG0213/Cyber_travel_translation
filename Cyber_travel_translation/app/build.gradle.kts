@@ -1,10 +1,21 @@
+import java.util.Properties
+import java.io.FileInputStream
+
 plugins {
     id("com.android.application")
 }
 
+
+//val properties = Properties()
+//properties.load(project.rootProject.file("local.properties").newDataInputStream())
+
 android {
     namespace = "com.example.cyber_travel_translation"
     compileSdk = 34
+
+    val properties = Properties()
+    //properties.load(FileInputStream(rootProject.file("local.properties")))
+    properties.load(FileInputStream(rootProject.file("local.properties")))
 
     defaultConfig {
         applicationId = "com.example.cyber_travel_translation"
@@ -15,28 +26,44 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
+        val googleApiKey = properties.getProperty("google_api")
+        buildConfigField("String", "GOOGLE_API", googleApiKey)
+        resValue("string", "GOOGLE_API", properties.getProperty("google_api"))
+
 
     }
 
     buildFeatures {
+        viewBinding = true
         buildConfig = true
     }
 
     buildTypes {
+        //debug {
+        //    val properties = Properties()
+        //    properties.load(FileInputStream(rootProject.file("local.properties")))
+        //    buildConfigField("String", "GOOGLE_API",  properties.getProperty("google_api"))
+        //    resValue("String", "GOOGLE_API", properties.getProperty("google_api"))
+        //}
         release {
             isMinifyEnabled = false
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
 
             // 프로젝트에서 사용
-            buildConfigField("String", "GOOGLE_API", "\"${project.findProperty("google_api") ?: ""}\"")
+            //buildConfigField("String", "GOOGLE_API", "\"${project.findProperty("google_api") ?: ""}\"")
             // 매니페스트에서 사용
-            resValue("string", "GOOGLE_API", "\"${project.findProperty("google_api") ?: ""}\"")
+            //resValue("string", "GOOGLE_API", "\"${project.findProperty("google_api") ?: ""}\"")
         }
     }
+
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
+
+
+
 }
 
 dependencies {

@@ -14,7 +14,7 @@
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="{GOOGLE_API}"/>
+            android:value="@string/GOOGLE_API"/>
         <!-- build.gradle.kts, local.properties에 깃허브에 API_KEY가 안올라가게끔 설정함 -->
 
         <activity android:name=".MainActivity"
