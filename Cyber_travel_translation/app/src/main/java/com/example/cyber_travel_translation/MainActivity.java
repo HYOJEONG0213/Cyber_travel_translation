@@ -39,8 +39,8 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
         // 버튼 초기화
         web_streetViewButton = findViewById(R.id.web_streetViewButton);
         image_streetViewButton = findViewById(R.id.image_streetViewButton);
-        streetViewWebView = new WebView(this);
-        streetViewWebView.getSettings().setJavaScriptEnabled(true); //streeView 초기화
+        streetViewWebView = findViewById(R.id.streetViewWebView);
+        streetViewWebView.getSettings().setJavaScriptEnabled(true);
         streetViewWebView.setWebViewClient(new WebViewClient());
         web_streetViewButton.setOnClickListener(new View.OnClickListener() {    //streetView 버튼 누르면 showStreetView 실행
             @Override
@@ -118,7 +118,9 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
             String streetViewUrl = "https://www.google.com/maps/@?api=1&map_action=pano&viewpoint="
                     + clickedLatLng.latitude + "," + clickedLatLng.longitude;
             streetViewWebView.loadUrl(streetViewUrl);
-            setContentView(streetViewWebView);  //화면에 streetViewWebView가 보이게끔 표시
+            //setContentView(streetViewWebView);  //화면에 streetViewWebView가 보이게끔 표시
+            streetViewWebView.setVisibility(View.VISIBLE);  // 웹뷰를 표시
+            mapView.setVisibility(View.VISIBLE);  // 맵뷰를 숨김
         } else {
             Toast.makeText(this, "지점을 클릭해주세요.", Toast.LENGTH_SHORT).show();
         }
@@ -137,7 +139,9 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
 
             // 생성한 URL을 WebView에 로드
             streetViewWebView.loadUrl(streetViewUrl);
-            setContentView(streetViewWebView);  // 화면에 streetViewWebView가 보이게끔 표시
+            //setContentView(streetViewWebView);  // 화면에 streetViewWebView가 보이게끔 표시
+            streetViewWebView.setVisibility(View.VISIBLE);
+            mapView.setVisibility(View.VISIBLE);
         } else {
             Toast.makeText(this, "지점을 클릭해주세요.", Toast.LENGTH_SHORT).show();
         }
@@ -146,38 +150,3 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
 }
 
 
-/*
-public class MainActivity extends AppCompatActivity implements OnMapReadyCallback {
-
-    private GoogleMap mMap;
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
-        mapFragment.getMapAsync(this);
-    }
-
-
-    @Override
-    public void onMapReady(final GoogleMap googleMap) {
-        mMap = googleMap;
-
-        LatLng SEOUL = new LatLng(37.56, 126.97);
-
-        MarkerOptions markerOptions = new MarkerOptions();         // 마커 생성
-        markerOptions.position(SEOUL);
-        markerOptions.title("서울");                         // 마커 제목
-        markerOptions.snippet("한국의 수도");         // 마커 설명
-        mMap.addMarker(markerOptions);
-
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(SEOUL));                 // 초기 위치
-        mMap.animateCamera(CameraUpdateFactory.zoomTo(15));                         // 줌의 정도
-        googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);                           // 지도 유형 설정
-
-    }
-
-}
-*/
