@@ -4,6 +4,19 @@
     package="com.example.cyber_travel_translation">
 
 
+    <!--    갤러리 접근 권한   -->
+    <uses-permission
+        android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+
+    <!-- 네트워크 인터넷 사용할 것임 -->
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <!-- openGL -->
+    <uses-feature android:glEsVersion="0x20000" />
+
+
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -18,12 +31,22 @@
         <!-- build.gradle.kts, local.properties에 깃허브에 API_KEY가 안올라가게끔 설정함 -->
 
         <activity android:name=".MainActivity"
-            android:exported="true">
+            android:exported="true"
+            android:label="Cyber travel translation"
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+
+        <activity android:name=".ImageStreetView"
+        android:label="Image Street View Activity">
+        </activity>
+
+        <activity android:name=".TranslateView"
+            android:label="Image Street View Activity">
         </activity>
     </application>
 

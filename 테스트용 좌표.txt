@@ -1,0 +1,7 @@
+일본: 35.4569115,139.6344508
+지하철역: 35.663101,139.7020763
+
+
+search-ms:displayname=Nexus_5_API_28.avd의%20검색%20결과&crumb=System.Generic.String%3Alock&crumb=location:C%3A%5CUsers%5CHyoJeong%5C.android%5Cavd%5CNexus_5_API_28.avd
+
+.lock

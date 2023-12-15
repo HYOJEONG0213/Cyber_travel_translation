@@ -5,7 +5,6 @@ plugins {
     id("com.android.application")
 }
 
-
 //val properties = Properties()
 //properties.load(project.rootProject.file("local.properties").newDataInputStream())
 
@@ -29,6 +28,12 @@ android {
         val googleApiKey = properties.getProperty("google_api")
         buildConfigField("String", "GOOGLE_API", googleApiKey)
         resValue("string", "GOOGLE_API", properties.getProperty("google_api"))
+
+
+        buildConfigField("String", "PAPAGO_ID", properties.getProperty("papago_id"))
+        resValue("string", "PAPAGO_ID", properties.getProperty("papago_id"))
+        buildConfigField("String", "PAPAGO_API", properties.getProperty("papago_api"))
+        resValue("string", "PAPAGO_API", properties.getProperty("papago_api"))
 
 
     }
@@ -62,6 +67,18 @@ android {
         targetCompatibility = JavaVersion.VERSION_1_8
     }
 
+    packagingOptions {
+        exclude ("META-INF/DEPENDENCIES")
+        exclude ("META-INF/LICENSE")
+        exclude ("META-INF/LICENSE.txt")
+        exclude ("META-INF/license.txt")
+        exclude ("META-INF/NOTICE")
+        exclude ("META-INF/NOTICE.txt")
+        exclude ("META-INF/notice.txt")
+        exclude ("META-INF/ASL2.0")
+    }
+    useLibrary ("org.apache.http.legacy")
+
 
 
 }
@@ -75,6 +92,23 @@ dependencies {
     //구글맵 라이브러리 쓸거임!
     implementation("com.google.android.gms:play-services-maps:17.0.1")
     implementation("com.google.android.gms:play-services-location:18.0.0")
+    implementation ("com.google.android.gms:play-services-vision:20.1.3")
+    implementation ("com.google.android.gms:play-services-panorama:17.1.0")
+
+    //파파고 이미지 번역 라이브러리 쓸거임!
+    //파파고 서버에 전송할거임!
+    implementation("com.squareup.okhttp3:okhttp:4.9.1")
+    //implementation("org.apache.httpcomponents:httpclient:4.5.13") {
+    //    exclude(group = "org.apache.httpcomponents", module = "httpclient")
+    //}
+    //implementation("org.apache.httpcomponents:httpclient-android:4.3.5.1")
+    //implementation("org.apache.httpcomponents:httpmime:4.5.13")
+
+
+    //Volly 쓸거임!
+    implementation("com.android.volley:volley:1.2.1")
+    implementation("com.google.android.gms:play-services-panorama:17.1.0")
+
 
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")

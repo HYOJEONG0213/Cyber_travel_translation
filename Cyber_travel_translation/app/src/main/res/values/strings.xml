@@ -2,4 +2,15 @@
     <string name="app_name">Cyber_travel_translation</string>
     <string name="map_description">Google 지도</string>
 
+    <string-array name="language_names">
+        <item>한국어</item>
+        <item>영어</item>
+        <item>일본어</item>
+    </string-array>
+
+    <string-array name="language_codes">
+        <item>ko</item>
+        <item>en</item>
+        <item>ja</item>
+    </string-array>
 </resources>

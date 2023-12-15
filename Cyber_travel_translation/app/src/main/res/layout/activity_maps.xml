@@ -5,48 +5,73 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:visibility="visible"
     tools:context=".MainActivity">
+
+
+
+
 
     <!-- MapView 추가 -->
     <com.google.android.gms.maps.MapView
         android:id="@+id/mapView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:contentDescription="@string/map_description"/>
+        android:contentDescription="@string/map_description" />
 
 
     <WebView
-        android:id="@+id/streetViewWebView"
+        android:id="@+id/webStreetView"
         android:layout_width="match_parent"
         android:layout_height="253dp"
         android:layout_alignParentBottom="true"
-        android:visibility="gone"
-        />
+        android:src="@android:color/transparent"
+        android:visibility="gone">
+
+    </WebView>
     <!--WebView
-        android:id="@+id/streetViewWebView"
+        android:id="@+id/webStreetView"
         android:layout_width="match_parent"
         android:layout_height="match_parent" / -->
 
-    <Button
-        android:id="@+id/web_streetViewButton"
-        android:layout_width="131dp"
-        android:layout_height="69dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:background="@android:color/holo_red_dark"
-        android:contentDescription="Street View Button" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-    <Button
-        android:id="@+id/image_streetViewButton"
-        android:layout_width="131dp"
-        android:layout_height="69dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="108dp"
-        android:layout_marginEnd="16dp"
-        android:background="#0033CC"
-        android:contentDescription="Street View Button" />
+        <Button
+            android:id="@+id/searchButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="검색하기" />
+
+        <EditText
+            android:id="@+id/searchField"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="검색할 장소를 입력해주세요." />
+
+        <Button
+            android:id="@+id/web_streetViewButton"
+            android:layout_width="131dp"
+            android:layout_height="50dp"
+            android:layout_gravity="right"
+            android:text="미리보기" />
+
+        <Button
+            android:id="@+id/image_streetViewButton"
+            android:layout_width="131dp"
+            android:layout_height="50dp"
+            android:layout_gravity="right"
+            android:text="번역하러 가기" />
+
+        <Button
+            android:id="@+id/transformButton"
+            android:layout_width="131dp"
+            android:layout_height="69dp"
+            android:background="#00CC22"
+            android:visibility="invisible" />
+
+    </LinearLayout>
 
 </RelativeLayout>

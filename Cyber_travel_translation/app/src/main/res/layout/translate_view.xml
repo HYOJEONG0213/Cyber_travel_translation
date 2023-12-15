@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="16dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.0001"
+                android:text="back" />
+
+            <RadioGroup
+                android:id="@+id/source_language_group"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="1px"
+                android:layout_weight="1">
+
+                <RadioButton
+                    android:id="@+id/source_korean"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="한국어" />
+
+                <RadioButton
+                    android:id="@+id/source_english"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="영어" />
+
+                <RadioButton
+                    android:id="@+id/source_japanese"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="일본어" />
+
+            </RadioGroup>
+
+            <ImageView
+                android:id="@+id/arrow"
+                android:layout_width="63dp"
+                android:layout_height="62dp"
+                android:layout_marginLeft="0px"
+                android:layout_marginTop="50px"
+                android:layout_weight="0.05"
+                app:srcCompat="@drawable/arrow" />
+
+            <RadioGroup
+                android:id="@+id/target_language_group"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:layout_marginLeft="100px"
+                android:layout_weight="1">
+
+                <RadioButton
+                    android:id="@+id/target_korean"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="한국어" />
+
+                <RadioButton
+                    android:id="@+id/target_english"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="영어" />
+
+                <RadioButton
+                    android:id="@+id/target_japanese"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="일본어" />
+
+            </RadioGroup>
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/transform_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="번역하기!" />
+
+        <ImageView
+            android:id="@+id/translatedImageView"
+            android:layout_width="376dp"
+            android:layout_height="478dp"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center_horizontal"
+            android:adjustViewBounds="true"
+            android:scaleType="fitCenter"
+            android:src="@drawable/loading" />
+
+    </LinearLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
